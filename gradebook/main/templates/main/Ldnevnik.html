@@ -1,0 +1,119 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+Страница Ученика
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12" style="padding: 10px; border: 1px solid rgba(99, 99, 99, 0.61); border-radius: 5px;">
+        {% for dayfull in page_obj %}
+            <div class="list-group" style="margin-bottom: 15px;">
+                <a href="#!" class="list-group-item active"><h4>{{dayfull.1}} - {{dayfull.0}}</h4></a>
+                {% if dayfull.2|length == 0  %}
+                    <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Нет уроков</h5>
+                        </div>
+                    </a>
+                {% else %}
+                    {% for lessonofdayfull in dayfull.2 %}
+                        <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ lessonofdayfull.2 }}</h5>
+                                <small class="text-muted">{{ lessonofdayfull.0 }}</small>
+                            </div>
+                            {% if lessonofdayfull.1|length == 0  %}
+                                <p>Нет домашнего задания</p>
+                            {% else %}
+                                <p>{{ lessonofdayfull.1 }}</p>
+                            {% endif %}
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="pagination">
+            <ul class="pagination">
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="?page=25">Текущая неделя</a>
+                    {% endif %}
+                </li>
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    {% endif %}
+                </li>
+                <li class="page-item">
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="#">
+                            <span class="current">
+                                Неделя {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                            </span>
+                        </a>
+                    {% endif %}
+                </li>
+                <li class="page-item">
+                    {% if page_obj.has_next %}
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Следующая</span>
+                        </a>
+                    {% endif %}
+                </li>
+                <li class="page-item">
+                    {% if page_obj.has_next %}
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Последняя неделя</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block sidebar %} 
+    <div class="sidebar-header brand-wrapper">
+        <a href=""><h3><img src="{% static 'main\images\dnek.png' %}" style="margin-bottom: 5px;" alt="logo" class="logo"><span style="margin-left: 5px;">Dnekru</span></h3></a>
+    </div>
+    <!-- <div class="sidebar-header">
+        <h3>Bootstrap Sidebar</h3>
+    </div> -->
+    <ul class="list-unstyled components">
+        <li>
+            <a href="learner">Главная</a>
+        </li>
+        <li>
+            <a href="Lshedule">Расписание</a>
+        </li>
+        <li>
+            <a href="Ldnevnik">Журнал</a>
+        </li>
+    </ul>
+
+    <!-- <ul class="list-unstyled CTAs">
+        <li>
+            <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+        </li>
+        <li>
+            <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+        </li>
+    </ul> -->
+{% endblock %}
+

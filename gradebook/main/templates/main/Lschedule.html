@@ -1,0 +1,73 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} 
+Страница Ученика
+{% endblock %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12" style="padding: 10px; border: 1px solid rgba(99, 99, 99, 0.61); border-radius: 5px;">
+        {% for daysofweekfull in shedweek %}
+            <div class="list-group" style="margin-bottom: 15px;">
+                <a href="#!" class="list-group-item active"><h4>{{daysofweekfull.0}}</h4></a>
+                {% if daysofweekfull.1|length == 0  %}
+                    <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">Нет уроков</h5>
+                        </div>
+                    </a>
+                {% else %}
+                    {% for lessonofdayfull in daysofweekfull.1 %}
+                        <a href="#!" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ lessonofdayfull.1 }} {{ lessonofdayfull.2 }} - {{ lessonofdayfull.3 }}</h5>
+                                <small class="text-muted">{{ lessonofdayfull.0 }}</small>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block sidebar %} 
+    <div class="sidebar-header brand-wrapper">
+        <a href=""><h3><img src="{% static 'main\images\dnek.png' %}" style="margin-bottom: 5px;" alt="logo" class="logo"><span style="margin-left: 5px;">Dnekru</span></h3></a>
+    </div>
+    <!-- <div class="sidebar-header">
+        <h3>Bootstrap Sidebar</h3>
+    </div> -->
+    <ul class="list-unstyled components">
+        <li>
+            <a href="teacher">Главная</a>
+        </li>
+        <li>
+            <a href="#">Расписание</a>
+        </li>
+        <li>
+            <a href="Ldnevnik">Журнал</a>
+        </li>
+    </ul>
+
+    <!-- <ul class="list-unstyled CTAs">
+        <li>
+            <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+        </li>
+        <li>
+            <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+        </li>
+    </ul> -->
+{% endblock %}
